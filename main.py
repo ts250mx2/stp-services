@@ -39,6 +39,16 @@ class WebhookRequest(BaseModel):
     causaDevolucion: Optional[str] = None
     tsLiquidacion: str
 
+class CEPRequest(BaseModel):
+    rfcCep: str
+    urlCEP: str
+    nombreCep: str
+    empresa: str
+    fechaOperacion: str
+    sello: str
+    claveRastreo: str
+    cuentaBeneficiario: str
+
 class WebhookResponse(BaseModel):
     mensaje: str
 
@@ -60,9 +70,16 @@ async def registrar_pago(order: PaymentOrder):
 async def webhook(request: WebhookRequest):
     """
     Endpoint de Webhook para recibir notificaciones de liquidación de STP.
-    Responde con la estructura obligatoria {"mensaje": "recibido"}.
     """
-    print(f"Notificación de Webhook recibida: ID {request.id}, Rastreo: {request.claveRastreo}, Estado: {request.estado}")
+    print(f"Notificación de Liquidación recibida: ID {request.id}, Rastreo: {request.claveRastreo}, Estado: {request.estado}")
+    return {"mensaje": "recibido"}
+
+@app.post("/webhook-cep", response_model=WebhookResponse)
+async def webhook_cep(request: CEPRequest):
+    """
+    Endpoint de Webhook para recibir notificaciones de CEP (Comprobante Electrónico de Pago).
+    """
+    print(f"Notificación CEP recibida: Rastreo: {request.claveRastreo}, Beneficiario: {request.nombreCep}")
     return {"mensaje": "recibido"}
 
 if __name__ == "__main__":
