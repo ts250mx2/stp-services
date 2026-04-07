@@ -84,3 +84,28 @@ Respuesta esperada:
 ```json
 {"mensaje":"recibido"}
 ```
+
+### Webhook de CEP (Comprobante Electrónico de Pago)
+
+El servicio también expone un endpoint en `/webhook-cep` para recibir notificaciones de CEP.
+
+Para probarlo localmente:
+```bash
+curl -X POST http://localhost:8000/webhook-cep \
+-H "Content-Type: application/json" \
+-d '{
+    "rfcCep": "MAAN8609106DA",
+    "urlCEP": "http://example.com/cep",
+    "nombreCep": "NICOLAS MARIN ALVARADO",
+    "empresa": "VALIDADORA",
+    "fechaOperacion": "19691231",
+    "sello": "aiBme48xn84xspLEQ0WE",
+    "claveRastreo": "STPCRPT1661795995902IDZOLNV",
+    "cuentaBeneficiario": "152580100000000307"
+}'
+```
+
+Respuesta esperada:
+```json
+{"mensaje":"recibido"}
+```
