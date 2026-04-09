@@ -18,3 +18,14 @@ STP_TIPO_CUENTA_ORDENANTE = "40"
 STP_TIPO_CUENTA_BENEFICIARIO = "40"
 STP_TIPO_PAGO = "1"
 STP_CUENTA_PARTICIPANTE_INDIRECTO = "646180123412345678"
+
+# Parámetros adicionales para el SP
+STP_CONCEPTO_PAGO = "VALIDACION PAGO"
+STP_MONTO = "0.0" # Valor por defecto
+
+# Configuración de Base de Datos
+DB_SERVER = "appserver.europiel.com.mx"
+DB_DATABASE = "rm_europiel_requerimientos"
+DB_USER = "rm_europiel_master"
+DB_PASSWORD = "Pa88word1"
+DB_DRIVER = "{ODBC Driver 17 for SQL Server}" # Driver estándar para SQL Server en Windows
