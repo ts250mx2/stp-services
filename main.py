@@ -113,6 +113,10 @@ async def webhook(request: WebhookRequest):
     """
     print(f"Notificación de Liquidación recibida: ID {request.id}, Rastreo: {request.claveRastreo}, Estado: {request.estado}")
     
+    print("\n--- Webhook Request JSON para Postman ---")
+    print(request.model_dump_json(indent=None))
+    print("------------------------------------------\n")
+    
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -147,6 +151,40 @@ async def webhook_cep(request: CEPRequest):
     Endpoint de Webhook para recibir notificaciones de CEP (Comprobante Electrónico de Pago).
     """
     print(f"Notificación CEP recibida: Rastreo: {request.claveRastreo}, Beneficiario: {request.nombreCep}")
+
+    print("\n--- Webhook CEP Request JSON para Postman ---")
+    print(request.model_dump_json(indent=None))
+    print("----------------------------------------------\n")
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Parámetros para stp_actualizar_orden_webhook
+        params = (
+            request.rfcCep,
+            request.urlCEP,
+            request.nombreCep,
+            request.empresa,
+            request.fechaOperacion,
+            request.sello,
+            request.claveRastreo,
+            request.cuentaBeneficiario
+        )
+        
+        query = "{CALL stp_actualizar_orden_webhook_cep (?, ?, ?, ?, ?, ?, ?, ?)}"
+        print(f"Ejecutando actualización Webhook: EXEC stp_actualizar_orden_webhook_cep '{request.rfcCep}', '{request.urlCEP}', '{request.nombreCep}', '{request.empresa}', '{request.fechaOperacion}', '{request.sello}', '{request.claveRastreo}', '{request.cuentaBeneficiario}'")
+        
+        cursor.execute(query, params)
+        conn.commit()
+        conn.close()
+        print("Base de datos actualizada correctamente vía Webhook.")
+        
+    except Exception as e:
+        print(f"Error al actualizar la base de datos en el webhook: {e}")
+        # Opcionalmente podrías lanzar una excepción si quieres que STP reintente el webhook
+        # raise HTTPException(status_code=500, detail="Error interno al procesar webhook")
+        
     return {"mensaje": "recibido"}
 
 def get_db_connection():
