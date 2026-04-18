@@ -82,6 +82,7 @@ class CreateOrderRequest(BaseModel):
     referenciaNumerica: str
     id_sucursal: int
     id_bloque: int
+    institucionContraparte: Optional[str] = config.STP_INSTITUCION_CONTRAPARTE
 
 class CreateOrderResponse(BaseModel):
     clave_rastreo: str = ""
@@ -217,6 +218,7 @@ async def crear_orden_stp(request_in: CreateOrderRequest):
         order_data.id_sucursal = request_in.id_sucursal
         order_data.id_bloque = request_in.id_bloque
         order_data.referenciaNumerica = request_in.referenciaNumerica
+        order_data.institucionContraparte = request_in.institucionContraparte
 
         print(f"order_data: {order_data}")
         # Parámetros para stp_crear_orden
