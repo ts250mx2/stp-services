@@ -294,7 +294,7 @@ async def crear_orden_stp(request_in: CreateOrderRequest):
         print(f"Firma STP Final: {order_data.firma}")
         
         # Consumir el servicio de registro de STP
-        endpoint_registro = "https://demo.stpmex.com:7024/speiws/rest/ordenPago/registra"
+        endpoint_registro = config.STP_WEBSERVICE_URL #"https://demo.stpmex.com:7024/speiws/rest/ordenPago/registra"
         
         # Filtrar campos vacíos o nulos
         payload_data = {k: v for k, v in order_data.model_dump().items() if v is not None and v != ""}
