@@ -26,7 +26,7 @@ class PaymentOrder(BaseModel):
     fechaOperacion: Optional[str] = ""
     folioOrigen: Optional[str] = ""
     institucionContraparte: Optional[str] = config.STP_INSTITUCION_CONTRAPARTE
-    institucionOperante: Optional[str] = config.STP_INSTITUCION_OPERANTE
+    institucionOperante: str = ""
     monto: Optional[str] = config.STP_MONTO
     nombreBeneficiario: str = ""
     nombreOrdenante: Optional[str] = config.STP_NOMBRE_ORDENANTE
