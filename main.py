@@ -82,6 +82,7 @@ class CreateOrderRequest(BaseModel):
     referenciaNumerica: str
     id_sucursal: int
     id_bloque: int
+    institucionOperante: str
     institucionContraparte: Optional[str] = config.STP_INSTITUCION_CONTRAPARTE
 
 class CreateOrderResponse(BaseModel):
