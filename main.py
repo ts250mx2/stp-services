@@ -218,7 +218,8 @@ async def crear_orden_stp(request_in: CreateOrderRequest):
         order_data.id_sucursal = request_in.id_sucursal
         order_data.id_bloque = request_in.id_bloque
         order_data.referenciaNumerica = request_in.referenciaNumerica
-        order_data.institucionContraparte = request_in.institucionContraparte
+        #order_data.institucionContraparte = request_in.institucionContraparte
+        order_data.institucionOperante = request_in.institucionOperante
 
         print(f"order_data: {order_data}")
         # Parámetros para stp_crear_orden
